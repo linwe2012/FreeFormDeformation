@@ -4,7 +4,7 @@ import * as THREE from 'three'
 // import { TrackballControls } from './traceballctrl'
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { Object3D, Box3 } from 'three'
+import { Object3D, Box3, Group } from 'three'
 
 const Render : React.FC = (props)=>{
     useEffect(()=>{
@@ -177,7 +177,7 @@ function ffdOnce(l:number, m:number, n:number, s:number, t:number, u:number, P:T
     return X
 }
 
-function MakeCtrlPoint(dims : THREE.Vector3, box : THREE.Box3) {
+function MakeCtrlPoint(dims : THREE.Vector3, box : THREE.Box3, fn: (v:THREE.Vector3)=>any) {
     const gap = box.max.clone().sub(box.min)
     const arr = new Array<Array<Array<THREE.Vector3>>>()
     for(let i = 0; i < dims.x; ++i) {
@@ -191,23 +191,37 @@ function MakeCtrlPoint(dims : THREE.Vector3, box : THREE.Box3) {
                     gap.z / dims.z * k,
                 )
                 arr[i][j][k].add(box.min)
+                fn(arr[i][j][k])
             }
         }
     }
     return arr
 }
 
-let CtrlPoints = new Array<Array<Array<THREE.Vector3>>>()
+let ctrlPoints = new Array<Array<Array<THREE.Vector3>>>()
 let objectScene : THREE.Scene | null = null
 let lastDims = new THREE.Vector3(4, 4, 4)
+let ctrlPointsGroup = new Group()
+scene.add(ctrlPointsGroup)
 
 function UpdateCtrlPoints(dims : THREE.Vector3) {
     if(objectScene === null) {
         return
     }
 
-    // let box = 
+    lastDims = dims
+    ctrlPointsGroup.children = []
+    let box = new Box3().setFromObject(objectScene)
+    ctrlPoints = MakeCtrlPoint(dims, box, (v)=>{
+        let geometry = new THREE.SphereGeometry(0.04, 6, 6)
+        let material = new THREE.MeshLambertMaterial({color:0xeeeeee});
+        let dot = new THREE.Mesh(geometry, material)
+        dot.position.set(v.x, v.y, v.z)
+        ctrlPointsGroup.add(dot)
+    })
 }
+
+
 
 const loader = new GLTFLoader()
 loader.load('/scene.gltf', (m)=>{
