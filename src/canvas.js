@@ -13,7 +13,7 @@ export class CanvasManager {
     }
     frame = null
 
-    constructor(frame, canvas) {
+    constructor(frame, canvas, render, onresize) {
         this.clearPickPosition()
         this.canvas = canvas
         this.w = frame.clientWidth
@@ -21,6 +21,12 @@ export class CanvasManager {
         frame.appendChild(canvas)
         frame.mouseout = ()=> this.clearPickPosition()
         this.frame = frame
+        window.addEventListener('resize', (e)=>{
+            this.w = this.frame.clientWidth
+            this.h = this.frame.clientHeight
+            // render.setSize(this.w, this.h)
+            onresize(this.w, this.h)
+        })
     }
     
     set onmousemove(fn) {

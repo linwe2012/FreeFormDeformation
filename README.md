@@ -1,3 +1,9 @@
+Implements Free Form Deformation with Typescript.
+
+This is a one of the course project for computer animation in ZJU.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
