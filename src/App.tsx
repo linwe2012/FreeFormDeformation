@@ -26,14 +26,12 @@ const App: React.FC = () => {
     <div className="App">
       <Grid container className={classes.root}>
         <Grid item xs={9}>
-      
         <FixedMaxWidth>
         <Render 
           ctrlPointsDims={ctrlPointsDims}
           scene={Selects[scene]}
         />
         </FixedMaxWidth>
-      
       </Grid>
       <Grid item xs={3} className={classes.Right}>
 

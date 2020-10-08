@@ -654,13 +654,25 @@ var TrackballControls = function ( object, domElement ) {
 
 	};
 
-	this.domElement.addEventListener( 'contextmenu', contextmenu, false );
-	this.domElement.addEventListener( 'mousedown', mousedown, false );
-	this.domElement.addEventListener( 'wheel', mousewheel, false );
 
-	this.domElement.addEventListener( 'touchstart', touchstart, false );
-	this.domElement.addEventListener( 'touchend', touchend, false );
-	this.domElement.addEventListener( 'touchmove', touchmove, false );
+	this.attachCallback = function () {
+		this.domElement.addEventListener( 'contextmenu', contextmenu, false );
+		this.domElement.addEventListener( 'mousedown', mousedown, false );
+		this.domElement.addEventListener( 'wheel', mousewheel, false );
+
+		this.domElement.addEventListener( 'touchstart', touchstart, false );
+		this.domElement.addEventListener( 'touchend', touchend, false );
+		this.domElement.addEventListener( 'touchmove', touchmove, false );
+	}
+
+	this.attachCallback()
+	//this.domElement.addEventListener( 'contextmenu', contextmenu, false );
+	//this.domElement.addEventListener( 'mousedown', mousedown, false );
+	//this.domElement.addEventListener( 'wheel', mousewheel, false );
+
+	//this.domElement.addEventListener( 'touchstart', touchstart, false );
+	//this.domElement.addEventListener( 'touchend', touchend, false );
+	//this.domElement.addEventListener( 'touchmove', touchmove, false );
 
 	// window.addEventListener( 'keydown', keydown, false );
 	// window.addEventListener( 'keyup', keyup, false );

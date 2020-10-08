@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { CanvasManager } from './canvas'
 import * as THREE from 'three'
-// import { TrackballControls } from './traceballctrl'
-import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls'
+import { TrackballControls } from './traceballctrl'
+//import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { Box3, Group, Mesh, BufferGeometry, BufferAttribute, MeshBasicMaterial, Color } from 'three'
 // import { DragControls } from 'three/examples/jsm/controls/DragControls'
@@ -22,6 +22,8 @@ const Render : React.FC<RenderProps> = (props)=>{
     useEffect(()=>{
         setHandle(RunAll())
     }, [])
+
+    // eslint-disable: react-hooks/exhaustive-deps
     useEffect(()=>{
         if(handle){
             const dims = props.ctrlPointsDims
@@ -29,6 +31,7 @@ const Render : React.FC<RenderProps> = (props)=>{
         }
     }, [props.ctrlPointsDims])
 
+    // eslint-disable-next-line
     useEffect(()=>{
         if(handle) {
             handle.updateScene(props.scene)
@@ -70,6 +73,7 @@ control.rotateSpeed = 8.0;
 control.noPan = false
 control.maxDistance = 60
 control.keys = []
+control.dispose()
 const ambientLight = new THREE.AmbientLight( 0x404040 ); // soft white light
 scene.add( ambientLight );
 var light = new THREE.PointLight( 0xffffff, 1, 100 );
@@ -169,7 +173,9 @@ orthoAxis.position.set(-6 * canvas.Aspect(), -6 , -4.6)
 
 const axisCaster = new THREE.Raycaster()
 let lastAxis : THREE.Group | null = null
-axisCaster.linePrecision = 0.05;
+// axisCaster.linePrecision = 0.05;
+// axisCaster.params = { Line: { threshold: 100 } }
+axisCaster.params.Line = { threshold:5 }
 let mousedown = false
 let lastMouse = {
     x: 0,
@@ -197,7 +203,11 @@ const setAxisColor = (color:number) => {
     ((lastAxis.children[1] as Mesh).material as MeshBasicMaterial).color.set( color );
 }
 
-frame.onmousedown = (ev)=>{
+
+//frame.onmousedown 
+
+const onmousedown = (ev:MouseEvent)=>{
+    console.log('On mouse down')
     mousedown = true
     canvas.setPickPosition(ev)
     lastMouse.update(canvas.pickPosition)
@@ -213,6 +223,7 @@ frame.onmousedown = (ev)=>{
         setAxisColor( 0xffffff );
     }
 }
+frame.onmousedown = onmousedown
 
 let lastCtrlPoints = new Set<Mesh>()
 
@@ -231,7 +242,6 @@ frame.onclick = (ev)=>{
     canvas.setPickPosition(ev)
     axisCaster.setFromCamera(canvas.pickPosition, camera);
     const hits = axisCaster.intersectObjects(ctrlPointsGroup.children)
-    
     if(hits.length) {
         if(!ev.ctrlKey) {
             clearSelected()   
@@ -249,7 +259,9 @@ frame.onclick = (ev)=>{
 const moveRaycaster = new THREE.Raycaster();
 
 frame.onmousemove = (ev)=>{
-    if(lastAxis === null || !mousedown || !lastCtrlPoints.size) return
+    if(lastAxis === null || !mousedown || !lastCtrlPoints.size) {
+        return
+    }
     canvas.setPickPosition(ev)
     const delta = lastMouse.update(canvas.pickPosition)
     if(delta.length() === 0) return;
@@ -319,7 +331,7 @@ function MakeCtrlPoint(dims : THREE.Vector3, box : THREE.Box3, fn: (v:THREE.Vect
 
 // children[0]: lines
 // children[1]: plane
-const lattices = new THREE.Group();
+// const lattices = new THREE.Group();
 
 function UpdateCtrlPoints(dims : THREE.Vector3) {
     if(objectScene === null) {
@@ -493,6 +505,8 @@ const changeScene = (what:string)=>{
 }
 
 changeScene('book')
+control.attachCallback()
+
 return {
     updateCtrlDims: (x:number, y:number, z:number)=> UpdateCtrlPoints(new THREE.Vector3(x, y, z)),
     updateScene: (x:string)=>changeScene(x),

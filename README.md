@@ -2,9 +2,15 @@ Implements Free Form Deformation with Typescript.
 
 This is a one of the course project for computer animation in ZJU.
 
+Online Demo here: https://linwe2012.github.io/FreeFormDeformation/
+
+Demo (Click to see full demo on Youtube):
+[![Demo](https://j.gifs.com/mO3x53.gif)](https://youtu.be/GRPJoY3Y-5s)
 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). You need to install [Node.js](https://nodejs.org/en/) & [Yarn](https://classic.yarnpkg.com/en/docs/install) to run it.
+
+First run `yarn` to install dependencies. Then run `yarn start` to run app.
 
 ## Available Scripts
 
