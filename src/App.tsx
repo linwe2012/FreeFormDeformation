@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import PersonalPage from './personal_page'
 
 const Labels = [
   'Lattice X', 'Lattice Y', 'Lattice Z'
@@ -74,6 +75,7 @@ const App: React.FC = () => {
           )})
         }
         </div>
+        <PersonalPage></PersonalPage>
       </Grid>
       </Grid>
     </div>
