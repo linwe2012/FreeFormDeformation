@@ -58,6 +58,7 @@ let currentScale = 0.1
 
 renderer.setSize(canvas.w, canvas.h);
 renderer.setClearColor(0x444444, 1.0);
+renderer.setPixelRatio(window.devicePixelRatio)
 
 camera.position.z = 5;
 flatCamera.position.z = 5

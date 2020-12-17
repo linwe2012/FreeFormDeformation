@@ -35,7 +35,11 @@ const App: React.FC = () => {
         </FixedMaxWidth>
       </Grid>
       <Grid item xs={3} className={classes.Right}>
-
+      
+      <a href='https://github.com/linwe2012/FreeFormDeformation'>Github Source Code</a> <p></p>
+      <a href='https://people.eecs.berkeley.edu/~sequin/CS285/PAPERS/Sederberg_Parry.pdf'>[PDF] Free-Form Deformation of Solid Geometric Models</a>
+      <p></p>
+      <p></p>
       <FormControl variant="filled" fullWidth>
         <InputLabel htmlFor="filled-scene">Scene</InputLabel>
         <Select
