@@ -5,14 +5,14 @@
 
 
 
-Implements Free Form Deformation with Typescript.
+Implements Free Form Deformation with Typescript. [[PDF] Free-Form Deformation of Solid Geometric Models](https://people.eecs.berkeley.edu/~sequin/CS285/PAPERS/Sederberg_Parry.pdf)
 
 This project is 2nd course project for computer animations in ZJU.
 - Lab 1: [Spline](https://github.com/linwe2012/Spline) 
-- Lab 2: [Free form deformation](https://github.com/linwe2012/FreeFormDeformation) (This project)
+- Lab 2: Free form deformation (This project)
 - Lab 3: [Fuzzy Shape warp](https://github.com/linwe2012/FuzzyWarp)
 
-**Try [online Demo hosted on Github Pages](https://linwe2012.github.io/FreeFormDeformation/)**
+**Try [Online Demo hosted on Github Pages](https://linwe2012.github.io/FreeFormDeformation/)**
 
 Demo (Click to see full demo on Youtube):
 [![Demo](https://j.gifs.com/mO3x53.gif)](https://youtu.be/GRPJoY3Y-5s)
